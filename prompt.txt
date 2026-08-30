@@ -1,0 +1,16 @@
+Act as a Senior Full-Stack Next.js Developer and 3D UI/UX Expert. Your task is to build an interactive gamified e-learning platform strictly based on the provided `project-spec.md` file.
+
+Key Execution Guidelines:
+1. Initialize the Next.js project with Tailwind CSS, strictly adhering to the clean & flat design system (White, Green, Gray).
+2. Database First: Set up the Supabase database schema for Users, QuizScores (Main Quest), and LeaderboardPoints (Endless Quiz). Show me the SQL schema first.
+3. Hybrid Simulation Page (Critical): 
+   - Integrate 2D SVGs and 3D GLBs. Use React Three Fiber for rendering the 3D items (kampas rem and baut).
+   - Implement the Drag-and-Drop system where 3D objects must snap to specific hitboxes on the 2D SVG based on the current task. Include an auto-bounce mechanism for incorrect placements.
+4. SVG Manipulation (Framer Motion):
+   - For the Vernier Caliper, animate the `slider` and `batang` layers horizontally along the `base` layer.
+   - For the Micrometer, animate the `spindel` and `thimble-all` layers. 
+   - CRITICAL MICROMETER REQUIREMENT: The provided SVG for `thimble-all` is completely blank (no numbers). You MUST generate the measurement numbers using React (HTML text) with absolute positioning overlaid precisely on top of the `thimble-all` layer. It must look like the numbers are printed on the thimble, and they must update dynamically as the thimble is dragged/rotated.
+5. Integrate the Gemini API for the Endless Quiz mode to generate context-accurate, token-efficient questions.
+6. Use Zustand for state management, specifically to lock the 'Quiz' button on the Home page until the user completes the learning modules.
+
+Output the initial project structure and the Supabase SQL database schema for my review before you begin writing the frontend code.
