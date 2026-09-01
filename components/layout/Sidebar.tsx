@@ -18,6 +18,15 @@ export default function Sidebar() {
     setMounted(true);
   }, []);
 
+  // Hide public student sidebar on admin routes, login-dashboard, and auth pages
+  if (
+    pathname.startsWith('/admin') ||
+    pathname.startsWith('/login-dashboard') ||
+    pathname.startsWith('/auth')
+  ) {
+    return null;
+  }
+
   const { completed, total } = getCompletedCount();
   const progressPercent = mounted ? Math.round((completed / total) * 100) : 0;
 
@@ -50,7 +59,7 @@ export default function Sidebar() {
 
         {isAuthenticated ? (
           <>
-            {/* Progress Bar Section (Visible only when logged in) */}
+            {/* Progress Bar Section */}
             <div className="space-y-1.5 pt-1">
               <div className="flex items-center justify-between text-[11px] font-bold">
                 <span className="text-slate-400 uppercase tracking-wider">PROGRESS</span>
@@ -64,7 +73,7 @@ export default function Sidebar() {
               </div>
             </div>
 
-            {/* Navigation Menu (Visible only when logged in) */}
+            {/* Navigation Menu */}
             <nav className="space-y-2 pt-2">
               <Link
                 href="/"
@@ -156,4 +165,3 @@ export default function Sidebar() {
     </aside>
   );
 }
-

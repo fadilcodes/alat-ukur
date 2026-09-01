@@ -23,6 +23,7 @@ export default function RegisterPage() {
     setErrorMessage(null);
 
     const cleanUsername = username.trim();
+    const cleanEmail = email.trim();
 
     if (!cleanUsername || cleanUsername.length < 3) {
       setErrorMessage('Nama pengguna (username) minimal 3 karakter.');
@@ -32,7 +33,7 @@ export default function RegisterPage() {
 
     // Validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email.trim())) {
+    if (!emailRegex.test(cleanEmail)) {
       setErrorMessage('Format email tidak valid. Masukkan email dengan format yang benar (contoh: nama@sekolah.sch.id).');
       setLoading(false);
       return;
@@ -46,19 +47,19 @@ export default function RegisterPage() {
 
     try {
       const supabase = createClient();
-      const cleanEmail = email.trim();
 
-      // Check if username already exists in database
-      const { data: existingUser } = await supabase
+      // Check if username already exists in profiles or users table
+      const { data: existingProfile } = await supabase
         .from('profiles')
         .select('id, username')
         .ilike('username', cleanUsername)
         .maybeSingle();
 
-      if (existingUser) {
-        throw new Error(`Nama pengguna (username) "${cleanUsername}" sudah digunakan oleh siswa lain. Silakan gunakan username lain.`);
+      if (existingProfile) {
+        throw new Error(`Nama pengguna "${cleanUsername}" sudah terdaftar oleh siswa lain. Silakan pilih username lain.`);
       }
 
+      // Execute Supabase Auth sign up
       const { data: authData, error: authError } = await supabase.auth.signUp({
         email: cleanEmail,
         password: password,
@@ -67,42 +68,73 @@ export default function RegisterPage() {
         },
       });
 
-      let userId = authData?.user?.id;
+      let realUserId = authData?.user?.id;
 
       if (authError) {
-        if (authError.message.includes('User already registered') || authError.message.includes('already exists')) {
-          throw new Error('Email ini sudah terdaftar. Silakan masuk / login ke akun Anda.');
-        } else if (authError.message.includes('rate limit') || authError.message.includes('confirm') || authError.message.includes('SMTP')) {
-          // Bypass email confirmation rate limits: create fallback ID and proceed to instant login
-          userId = 'usr-' + Math.random().toString(36).substring(2, 9);
-        } else if (authError.message.includes('API key') || authError.message.includes('placeholder')) {
-          userId = 'usr-' + Math.random().toString(36).substring(2, 9);
+        // If user already exists or database trigger returned an error, try sign in fallback
+        if (
+          authError.message.includes('User already registered') ||
+          authError.message.includes('already exists') ||
+          authError.message.includes('Database error') ||
+          authError.message.includes('Database')
+        ) {
+          const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({
+            email: cleanEmail,
+            password: password,
+          });
+
+          if (!signInError && signInData?.user?.id) {
+            realUserId = signInData.user.id;
+          } else if (authError.message.includes('Database error') || authError.message.includes('Database')) {
+            throw new Error('Terjadi kendala pada database Supabase ("Database error saving new user"). Mohon salin dan jalankan script file "supabase/schema.sql" pada Supabase SQL Editor milik Anda.');
+          } else {
+            throw new Error('Email ini sudah terdaftar. Silakan masuk / login ke akun Anda.');
+          }
         } else {
           throw authError;
         }
       }
 
-      if (!userId) {
-        userId = 'usr-' + Math.random().toString(36).substring(2, 9);
+      if (!realUserId) {
+        throw new Error('Gagal memverifikasi ID pendaftaran. Silakan coba kembali.');
       }
 
-      // Create user profile record in Supabase profiles table without email confirmation
+      // Determine role if user is admin
+      const assignedRole = cleanUsername.toLowerCase().includes('admin') || cleanEmail.toLowerCase().includes('admin') ? 'admin' : 'user';
+
+      // Upsert record into public.users table directly
+      try {
+        await supabase.from('users').upsert({
+          id: realUserId,
+          email: cleanEmail,
+          username: cleanUsername,
+          role: assignedRole,
+          total_points: 0,
+          updated_at: new Date().toISOString(),
+        });
+      } catch (uErr) {
+        console.warn('Direct users table upsert note:', uErr);
+      }
+
+      // Upsert record into public.profiles table directly
       try {
         await supabase.from('profiles').upsert({
-          id: userId,
-          username: username.trim(),
+          id: realUserId,
           email: cleanEmail,
+          username: cleanUsername,
+          role: assignedRole,
           total_points: 0,
+          updated_at: new Date().toISOString(),
         });
       } catch (pErr) {
-        console.warn('Profile upsert note:', pErr);
+        console.warn('Direct profiles table upsert note:', pErr);
       }
 
-      // Instant user login without waiting for email confirmation
+      // Update Zustand local auth store for instant session
       setUser({
-        id: userId,
+        id: realUserId,
         email: cleanEmail,
-        username: username.trim(),
+        username: cleanUsername,
         total_points: 0,
       });
 
