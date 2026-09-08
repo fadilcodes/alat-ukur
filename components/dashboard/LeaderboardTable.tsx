@@ -109,10 +109,10 @@ export default function LeaderboardTable() {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2 text-slate-800 font-black text-lg">
           <span className="text-xl">🏆</span>
-          <h3>Leaderboard Realtime</h3>
+          <h3>Leaderboard Top 10</h3>
         </div>
         <span className="text-[11px] font-extrabold px-3 py-1 bg-[#E8F8F0] text-[#047857] rounded-full border border-[#D1F2E2]">
-          Peringkat XP
+          Poin XP
         </span>
       </div>
 

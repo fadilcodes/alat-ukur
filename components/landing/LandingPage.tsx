@@ -43,12 +43,8 @@ export default function LandingPage() {
       </header>
 
       {/* Hero Section */}
-      <main className="flex-grow flex flex-col justify-center max-w-5xl w-full mx-auto px-4 py-12 md:py-16 space-y-16">
+      <main className="grow flex flex-col justify-center max-w-5xl w-full mx-auto px-4 py-12 md:py-16 space-y-16">
         <div className="text-center space-y-6 max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-100 border border-emerald-200 text-[#047857] text-xs font-extrabold shadow-2xs">
-            <Sparkles className="w-4 h-4 text-[#10B981]" />
-            <span>Platform E-Learning & Simulator Metrologi Presisi</span>
-          </div>
 
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-slate-900 tracking-tight leading-[1.15]">
             Kuasai Pengukuran <span className="text-[#10B981]">Vernier Caliper</span> & <span className="text-[#10B981]">Mikrometer</span>
@@ -83,7 +79,7 @@ export default function LandingPage() {
             </div>
             <h3 className="text-lg font-bold text-slate-900">Modul Belajar Terstruktur</h3>
             <p className="text-xs text-slate-500 leading-relaxed font-medium">
-              Pelajari fungsi rahang, skala utama, nonius/thimble, dan cara membaca ketelitian hingga 0,05mm & 0,01mm.
+              Pelajari fungsi rahang, skala utama, nonius/thimble, dan cara membaca ketelitian alat ukur presisi dengan modul belajar interaktif.
             </p>
           </div>
 
@@ -113,10 +109,10 @@ export default function LandingPage() {
           <div className="text-center space-y-2">
             <div className="inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-amber-600 bg-amber-50 px-3 py-1 rounded-full border border-amber-200">
               <Trophy className="w-4 h-4 text-amber-500 fill-amber-500" />
-              <span>Papan Peringkat Realtime</span>
+              <span>Papan Peringkat Teratas</span>
             </div>
             <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">
-              Siswa Terbaik & Leaderboard 🏆
+              Leaderboard Poin Terbesar   🏆
             </h2>
             <p className="text-xs text-slate-500 font-medium">
               Bergabunglah sekarang, kumpulkan poin XP, dan rebut peringkat nomor 1!
@@ -130,7 +126,7 @@ export default function LandingPage() {
               href="/auth/register"
               className="inline-flex items-center gap-2 px-7 py-3.5 rounded-2xl bg-[#10B981] hover:bg-[#059669] text-white font-extrabold text-xs shadow-md shadow-emerald-500/20 transition-all"
             >
-              <span>Daftar & Rebut Peringkat #1 🚀</span>
+              <span>Daftar & Rebut Peringkat #1</span>
             </Link>
           </div>
         </section>

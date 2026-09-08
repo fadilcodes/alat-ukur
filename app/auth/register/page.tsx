@@ -176,7 +176,7 @@ export default function RegisterPage() {
               <input
                 type="text"
                 required
-                placeholder="Contoh: SiswaTeknik_01"
+                placeholder="Noval Fikri Ramadhan"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm font-medium"
