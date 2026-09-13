@@ -95,7 +95,7 @@ export default function LoginPage() {
           <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-green-600 to-emerald-400 text-white font-black text-2xl mx-auto flex items-center justify-center shadow-md">
             U
           </div>
-          <h1 className="text-2xl font-black text-slate-900 tracking-tight">Masuk ke AlatUkurEdu</h1>
+          <h1 className="text-2xl font-black text-slate-900 tracking-tight">Masuk ke CALIBRA</h1>
           <p className="text-xs text-slate-500">Platform E-Learning & Simulasi 2D Gamifikasi</p>
         </div>
 
