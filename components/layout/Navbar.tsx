@@ -55,13 +55,13 @@ export default function Navbar() {
 
             {/* Brand Logo */}
             <Link href="/" className="flex items-center gap-2.5 group">
-              <div className="w-8 h-8 rounded-xl bg-[#10B981] flex items-center justify-center text-white font-black text-sm shadow-sm group-hover:scale-105 transition-transform">
+              {/* <div className="w-8 h-8 rounded-xl bg-[#10B981] flex items-center justify-center text-white font-black text-sm shadow-sm group-hover:scale-105 transition-transform">
                 <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
                   <path d="M4 6h16v2H4zm2 4h12v2H6zm-2 4h16v2H4zm4 4h8v2H8z" />
                 </svg>
-              </div>
+              </div> */}
               <span className="font-extrabold text-sm sm:text-base text-slate-800 tracking-tight">
-                Belajar Alat Ukur
+                CALIBRA
               </span>
             </Link>
           </div>

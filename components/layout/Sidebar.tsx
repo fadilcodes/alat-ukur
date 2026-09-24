@@ -47,13 +47,13 @@ export default function Sidebar() {
       <div className="p-5 space-y-6">
         {/* Brand Logo & Header */}
         <Link href="/" className="flex items-center gap-2.5 group">
-          <div className="w-8 h-8 rounded-lg bg-[#10B981] flex items-center justify-center text-white font-black text-sm shadow-sm group-hover:scale-105 transition-transform">
+          {/* <div className="w-8 h-8 rounded-lg bg-[#10B981] flex items-center justify-center text-white font-black text-sm shadow-sm group-hover:scale-105 transition-transform">
             <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
               <path d="M4 6h16v2H4zm2 4h12v2H6zm-2 4h16v2H4zm4 4h8v2H8z" />
             </svg>
-          </div>
+          </div> */}
           <span className="font-black text-sm text-[#10B981] tracking-wider uppercase block">
-            BELAJAR ALAT UKUR
+            CALIBRA
           </span>
         </Link>
 

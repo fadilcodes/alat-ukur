@@ -19,7 +19,7 @@ export default function LandingPage() {
               </svg>
             </div>
             <span className="font-extrabold text-base text-slate-800 tracking-tight">
-              Belajar Alat Ukur
+              CALIBRA
             </span>
           </div>
 
